@@ -1,0 +1,53 @@
+# ========= model =========
+model_name_or_path: google/gemma-3-12b-it
+https://huggingface.co/enapeace/gemma3-12b-it-qloratemplate: gemma2
+trust_remote_code: true
+
+# ========= data =========
+dataset_dir: data
+dataset: train
+cutoff_len: 4096
+packing: false
+
+# ========= training =========
+stage: sft
+do_train: true
+train_on_prompt: false  # False이면 인풋 토큰을 학습 데이터로 사용하지 않고 아웃풋토큰만 학습에 사용함
+
+finetuning_type: lora
+# LLaMA-Factory에서 QLoRA의 진짜 의미
+# QLoRA = "4bit quantized base model" + "LoRA"
+# finetuning_type은 항상 lora, QLoRA 여부는 quantization 옵션으로 결정
+
+# QLoRA (4-bit)
+quantization_bit: 4
+
+
+learning_rate: 5e-5
+num_train_epochs: 2
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+max_grad_norm: 1.0
+
+bf16: true
+fp16: false
+
+logging_steps: 10
+save_total_limit: 2
+save_strategy: epoch
+# save_steps: 200
+
+
+# ========= qlora =========
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.1
+lora_target: all
+
+# ========= output =========
+output_dir: outputs/gemma3_12b_it_qlora
+overwrite_output_dir: true
+report_to: none
+plot_loss: true
