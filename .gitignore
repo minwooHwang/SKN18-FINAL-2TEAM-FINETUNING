@@ -3,3 +3,5 @@
 ###############
 .history
 .env
+.venv
+/gemma3_12b_it_qlora/

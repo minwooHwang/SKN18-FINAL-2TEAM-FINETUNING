@@ -1,6 +1,6 @@
 # ========= model =========
 model_name_or_path: google/gemma-3-12b-it
-https://huggingface.co/enapeace/gemma3-12b-it-qloratemplate: gemma2
+template: gemma2
 trust_remote_code: true
 
 # ========= data =========
